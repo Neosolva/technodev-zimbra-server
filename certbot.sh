@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo
-echo -e "\033[41;37;1m /!\ CERBOT INSTALLATION FOR ZIMBRA /!\\" "\\033[0m"
+echo "\033[41;37;1m /!\ CERBOT INSTALLATION FOR ZIMBRA /!\\" "\\033[0m"
 echo
 
 if [ -z "$1" ]
@@ -11,19 +11,19 @@ else
 	ZIMBRA_SERVER_DOMAIN=$1
 fi
 
-echo -e "Domain:" $1
+echo "Domain:" $1
 echo
 
-echo -e "\033[33;1mInstalling certbot with snap\033[0m"
+echo "\033[33;1mInstalling certbot with snap\033[0m"
 sudo snap install core
 sudo snap refresh core
 sudo snap install --classic certbot
 sudo ln -s /snap/bin/certbot /usr/local/sbin/certbot
 
-echo -e "\033[33;1mCertifying hostname\033[0m"
+echo "\033[33;1mCertifying hostname\033[0m"
 /usr/local/sbin/certbot certonly -d $ZIMBRA_SERVER_DOMAIN --standalone --preferred-chain "ISRG Root X1" --agree-tos --register-unsafely-without-email
 
-echo -e "\033[33;1mConfiguring cron job\033[0m"
+echo "\033[33;1mConfiguring cron job\033[0m"
 cat >> /usr/local/sbin/letsencrypt-zimbra << EOF
 #!/bin/bash
 /usr/local/sbin/certbot certonly -d $ZIMBRA_SERVER_DOMAIN --standalone --manual-public-ip-logging-ok -n --preferred-chain  "ISRG Root X1" --agree-tos --register-unsafely-without-email
