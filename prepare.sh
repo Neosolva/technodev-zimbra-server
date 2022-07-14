@@ -2,6 +2,7 @@
 
 echo
 echo -e "\033[41;37;1m /!\ ZIMBRA SERVER PRE-INSTALLATION /!\\" "\\033[0m"
+echo
 
 if [ -z "$1" ]
 then
