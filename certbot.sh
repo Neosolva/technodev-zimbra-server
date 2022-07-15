@@ -10,7 +10,7 @@ echo "Estimated runtime: less than one minute."
 echo ""
 echo "Author: Ang3 <https://github.com/Ang3>"
 echo ""
-read -p "Press Enter key to continue:" presskey
+read -p "Press Enter key to continue..." presskey
 
 echo ""
 read -p "Input Zimbra Base Domain. E.g mail.example.com : " ZIMBRA_DOMAIN

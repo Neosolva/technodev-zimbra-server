@@ -10,19 +10,20 @@ echo "Estimated runtime: 15 minutes (Zimbra install can take a while depending o
 echo ""
 echo "Author: Ang3 <https://github.com/Ang3>"
 echo ""
-read -p "Press Enter key to continue:" presskey
+read -p "Press Enter key to continue..." presskey
 
 echo ""
 echo "\033[33;1m[Step 1/2] Getting sources\033[0m"
 
-wget https://files.zimbra.com/downloads/8.8.15_GA/zcs-8.8.15_GA_4179.UBUNTU20_64.20211118033954.tgz
+wget https://s3.eu-west-3.amazonaws.com/neosolva.public/zimbra/zcs-8.8.15_GA_4179.UBUNTU20_64.20211118033954.tgz
 tar xvfz zcs-8.8.15_GA_4179.UBUNTU20_64.20211118033954.tgz
-cd zcs-8.8.15_GA_4179.UBUNTU20_64.20211118033954
 
 echo ""
-echo "\033[33;1m[Step 2/2] Zimbra installer\033[0m"
+echo "\033[33;1m[Step 2/2] Running Zimbra installer\033[0m"
 
+cd zcs-8.8.15_GA_4179.UBUNTU20_64.20211118033954
 sudo ./install.sh
+cd ..
 
 echo ""
 echo "\033[32;1mZimbra Server installed successfully.\033[0m"
