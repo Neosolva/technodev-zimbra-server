@@ -15,7 +15,7 @@ read -p "Press Enter key to continue:" presskey
 echo "\033[33;1m[Step 1/5] System update and package installation\033[0m"
 
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y wget perl perl-core unzip screen nmap nc sed sysstat libaio net-tools build-essential sqlite3 ntp libaio1 pax resolvconf openssh-clients
+sudo apt install -y wget perl perl-core unzip screen nmap nc sed sysstat libaio net-tools build-essential sqlite3 ntp libaio1 pax openssh-clients
 
 echo "\033[33;1m[Step 2/5] Host configuration\033[0m"
 
