@@ -14,6 +14,16 @@ else
 	echo
 fi
 
+if [ -z "$2" ]
+then
+	echo "Missing argument #2: private IP."
+	exit
+else
+	PRIVATE_IP=$2
+	echo "Private IP:" $2
+	echo
+fi
+
 echo "\033[33;1mSystem updates\033[0m"
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y net-tools build-essential sqlite3 sysstat ntp libaio1 pax resolvconf
@@ -21,24 +31,7 @@ sudo apt install -y net-tools build-essential sqlite3 sysstat ntp libaio1 pax re
 echo "\033[33;1mSetting hostname\033[0m"
 sudo hostnamectl set-hostname $ZIMBRA_SERVER_DOMAIN
 sudo sed -i "s/\(preserve_hostname: *\).*/\1true/" /etc/cloud/cloud.cfg
-sudo echo "35.181.127.215 $(hostname --fqdn)" | sudo tee -a /etc/hosts
-
-echo "\033[33;1mSetting DNS\033[0m"
-sudo systemctl disable systemd-resolved
-sudo systemctl stop systemd-resolved
-sudo ls -lh /etc/resolv.conf
-sudo rm -f /etc/resolv.conf
-sudo echo "nameserver 8.8.8.8" | sudo tee -a /etc/resolv.conf
-sudo echo "nameserver 8.8.4.4" | sudo tee -a /etc/resolv.conf
-
-echo "\033[33;1mConfiguring dnsmasq\033[0m"
-sudo apt install dnsmasq -y
-sudo echo "server=8.8.8.8" | sudo tee -a /etc/dnsmasq.conf
-sudo echo "domain=$ZIMBRA_SERVER_DOMAIN" | sudo tee -a /etc/dnsmasq.conf
-sudo echo "mx-host=$ZIMBRA_SERVER_DOMAIN, 10" | sudo tee -a /etc/dnsmasq.conf
-sudo echo "listen-address=127.0.0.1" | sudo tee -a /etc/dnsmasq.conf
-sudo echo "address=/$ZIMBRA_SERVER_DOMAIN/35.181.127.215" | sudo tee -a /etc/dnsmasq.conf
-sudo systemctl restart dnsmasq
+sudo echo "$PRIVATE_IP $(hostname --fqdn)" | sudo tee -a /etc/hosts
 
 echo "\033[33;1mSetting static DNS\033[0m"
 sudo cat >> 99-custom-dns.yaml << EOF
