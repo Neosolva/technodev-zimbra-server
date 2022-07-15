@@ -21,7 +21,7 @@ sudo snap install --classic certbot
 sudo ln -s /snap/bin/certbot /usr/local/sbin/certbot
 
 echo "\033[33;1mCertifying hostname\033[0m"
-/usr/local/sbin/certbot certonly -d $ZIMBRA_SERVER_DOMAIN --standalone --preferred-chain "ISRG Root X1" --agree-tos --register-unsafely-without-email
+sudo /usr/local/sbin/certbot certonly -d $ZIMBRA_SERVER_DOMAIN --standalone --preferred-chain "ISRG Root X1" --agree-tos --register-unsafely-without-email
 
 echo "\033[33;1mConfiguring cron job\033[0m"
 cat >> /usr/local/sbin/letsencrypt-zimbra << EOF
@@ -38,8 +38,7 @@ cd /tmp
 su zimbra -c '/opt/zimbra/bin/zmcertmgr deploycrt comm "/etc/letsencrypt/live/$ZIMBRA_SERVER_DOMAIN/cert.pem" "/etc/letsencrypt/live/$ZIMBRA_SERVER_DOMAIN/chainZimbra.pem"'
 rm -f "/etc/letsencrypt/live/$ZIMBRA_SERVER_DOMAIN/chainZimbra.pem"
 EOF
-chmod +rx /usr/local/sbin/letsencrypt-zimbra
-ln -s /usr/local/sbin/letsencrypt-zimbra /etc/cron.daily/letsencrypt-zimbra
-/etc/cron.daily/letsencrypt-zimbra
-
+sudo chmod +rx /usr/local/sbin/letsencrypt-zimbra
+sudo ln -s /usr/local/sbin/letsencrypt-zimbra /etc/cron.daily/letsencrypt-zimbra
+sudo /etc/cron.daily/letsencrypt-zimbra
 sudo su zimbra -c '/opt/zimbra/bin/zmcontrol restart'
