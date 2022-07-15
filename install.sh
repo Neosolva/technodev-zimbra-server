@@ -12,6 +12,7 @@ echo "Author: Ang3 <https://github.com/Ang3>"
 echo ""
 read -p "Press Enter key to continue:" presskey
 
+echo ""
 echo "\033[33;1m[Step 1/2] Getting sources\033[0m"
 
 wget https://files.zimbra.com/downloads/8.8.15_GA/zcs-8.8.15_GA_4179.UBUNTU20_64.20211118033954.tgz
