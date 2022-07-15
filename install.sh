@@ -7,7 +7,7 @@ echo
 wget https://files.zimbra.com/downloads/8.8.15_GA/zcs-8.8.15_GA_4179.UBUNTU20_64.20211118033954.tgz
 tar xvfz zcs-8.8.15_GA_4179.UBUNTU20_64.20211118033954.tgz
 cd zcs-8.8.15_GA_4179.UBUNTU20_64.20211118033954
-sudo sh ./install.sh
+sudo sh install.sh
 
 echo "\033[33;1mSetting DNS\033[0m"
 sudo apt install -y resolvconf
