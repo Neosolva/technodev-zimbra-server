@@ -32,11 +32,12 @@ sudo echo "nameserver 8.8.8.8" | sudo tee -a /etc/resolv.conf
 sudo echo "nameserver 8.8.4.4" | sudo tee -a /etc/resolv.conf
 
 echo "\033[33;1mConfiguring dnsmasq\033[0m"
+sudo apt install dnsmasq -y
 sudo echo "server=8.8.8.8" | sudo tee -a /etc/dnsmasq.conf
-sudo echo "domain=technodev.online" | sudo tee -a /etc/dnsmasq.conf
-sudo echo "mx-host=technodev.online, mail.technodev.online, 10" | sudo tee -a /etc/dnsmasq.conf
+sudo echo "domain=$ZIMBRA_SERVER_DOMAIN" | sudo tee -a /etc/dnsmasq.conf
+sudo echo "mx-host=$ZIMBRA_SERVER_DOMAIN, 10" | sudo tee -a /etc/dnsmasq.conf
 sudo echo "listen-address=127.0.0.1" | sudo tee -a /etc/dnsmasq.conf
-sudo echo "address=/mail.technodev.online/35.181.127.215" | sudo tee -a /etc/dnsmasq.conf
+sudo echo "address=/$ZIMBRA_SERVER_DOMAIN/35.181.127.215" | sudo tee -a /etc/dnsmasq.conf
 sudo systemctl restart dnsmasq
 
 echo "\033[33;1mSetting static DNS\033[0m"
