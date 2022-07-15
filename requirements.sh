@@ -12,11 +12,13 @@ echo "Author: Ang3 <https://github.com/Ang3>"
 echo ""
 read -p "Press Enter key to continue:" presskey
 
+echo ""
 echo "\033[33;1m[Step 1/5] System update and package installation\033[0m"
 
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y wget perl perl-core unzip screen nmap nc sed sysstat libaio net-tools build-essential sqlite3 ntp libaio1 pax openssh-clients
+sudo apt install -y wget perl unzip screen nmap sed sysstat net-tools build-essential sqlite3 ntp libaio1 pax
 
+echo ""
 echo "\033[33;1m[Step 2/5] Host configuration\033[0m"
 
 echo ""
@@ -34,6 +36,7 @@ sudo tee -a /etc/hosts <<EOF
 $ZIMBRA_SERVERIP $ZIMBRA_HOSTNAME.$ZIMBRA_DOMAIN $ZIMBRA_HOSTNAME
 EOF
 
+echo ""
 echo "\033[33;1m[Step 4/5] Installation and configuration of Dnsmasq\033[0m"
 echo ""
 
@@ -58,18 +61,19 @@ EOF
 echo "Restarting service..."
 sudo systemctl restart dnsmasq
 
+echo ""
 echo "\033[33;1m[Step 5/5] Validation\033[0m"
 echo ""
 
 hostnamectl
 
 echo ""
-echo "- Server hostname: $(hostname --fqdn)"
-echo "- Server domain: $ZIMBRA_DOMAIN"
-echo "- Public IP address: $ZIMBRA_SERVERIP"
+echo "- Server FQHN:        \033[36$(hostname --fqdn)\033[0m"
+echo "- Server Domain:      \033[36$ZIMBRA_DOMAIN\033[0m"
+echo "- Public IP Address:  \033[36$ZIMBRA_SERVERIP\033[0m"
 echo ""
 
-echo "\033[33;1mDone. The server has been configured for the installation of Zimbra Server.\033[0m"
+echo "\033[32;1mDone. The server has been configured for the installation of Zimbra Server.\033[0m"
 echo ""
 
 echo "\033[33;1mThe system will now restart. When restarted, run the script 'install.sh' to install Zimbra Server.\033[0m"
