@@ -24,7 +24,7 @@ echo "\033[33;1mCertifying hostname\033[0m"
 sudo /usr/local/sbin/certbot certonly -d $ZIMBRA_SERVER_DOMAIN --standalone --preferred-chain "ISRG Root X1" --agree-tos --register-unsafely-without-email
 
 echo "\033[33;1mConfiguring cron job\033[0m"
-cat >> /usr/local/sbin/letsencrypt-zimbra << EOF
+cat >> letsencrypt-zimbra << EOF
 #!/bin/bash
 /usr/local/sbin/certbot certonly -d $ZIMBRA_SERVER_DOMAIN --standalone --manual-public-ip-logging-ok -n --preferred-chain  "ISRG Root X1" --agree-tos --register-unsafely-without-email
 cp "/etc/letsencrypt/live/$ZIMBRA_SERVER_DOMAIN/privkey.pem" /opt/zimbra/ssl/zimbra/commercial/commercial.key
@@ -38,6 +38,7 @@ cd /tmp
 su zimbra -c '/opt/zimbra/bin/zmcertmgr deploycrt comm "/etc/letsencrypt/live/$ZIMBRA_SERVER_DOMAIN/cert.pem" "/etc/letsencrypt/live/$ZIMBRA_SERVER_DOMAIN/chainZimbra.pem"'
 rm -f "/etc/letsencrypt/live/$ZIMBRA_SERVER_DOMAIN/chainZimbra.pem"
 EOF
+sudo mv letsencrypt-zimbra /usr/local/sbin/letsencrypt-zimbra
 sudo chmod +rx /usr/local/sbin/letsencrypt-zimbra
 sudo ln -s /usr/local/sbin/letsencrypt-zimbra /etc/cron.daily/letsencrypt-zimbra
 sudo /etc/cron.daily/letsencrypt-zimbra
