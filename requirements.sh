@@ -16,7 +16,7 @@ echo ""
 echo "\033[33;1m[Step 1/5] System update and package installation\033[0m"
 
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y bind9 bind9utils net-tools resolvconf perl screen nmap sed sysstat build-essential sqlite3 ntp libaio1 pax
+sudo apt install -y net-tools resolvconf perl screen nmap sed sysstat build-essential sqlite3 ntp libaio1 pax
 
 echo ""
 echo "\033[33;1m[Step 2/5] Host configuration\033[0m"
