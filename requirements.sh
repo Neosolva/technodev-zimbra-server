@@ -13,13 +13,13 @@ echo ""
 read -p "Press Enter key to continue..." presskey
 
 echo ""
-echo "\033[33;1m[Step 1/5] System update and package installation\033[0m"
+echo "\033[33;1m[Step 1/4] System update and package installation\033[0m"
 
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y net-tools resolvconf perl screen nmap sed sysstat build-essential sqlite3 ntp libaio1 pax
 
 echo ""
-echo "\033[33;1m[Step 2/5] Host configuration\033[0m"
+echo "\033[33;1m[Step 2/4] Host configuration\033[0m"
 
 echo ""
 read -p "Input Zimbra Base Domain. E.g example.com : " ZIMBRA_DOMAIN
@@ -35,6 +35,9 @@ sudo cp /etc/hosts /etc/hosts.backup
 sudo tee -a /etc/hosts <<EOF
 $ZIMBRA_SERVERIP $ZIMBRA_HOSTNAME.$ZIMBRA_DOMAIN $ZIMBRA_HOSTNAME
 EOF
+
+echo ""
+echo "\033[33;1m[Step 3/4] DNS configuration\033[0m"
 
 echo "\033[33;1mSetting static DNS servers...\033[0m"
 sudo cat >> 99-custom-dns.yaml << EOF
@@ -55,6 +58,18 @@ sudo tee /etc/resolvconf/resolv.conf.d/tail<<EOF
 nameserver 8.8.8.8
 nameserver 8.8.4.4
 EOF
+
+echo ""
+echo "\033[33;1m[Step 4/4] Validation\033[0m"
+echo ""
+
+hostnamectl
+
+echo ""
+echo "- Server FQHN:        \033[36m $(hostname --fqdn) \033[0m"
+echo "- Server Domain:      \033[36m $ZIMBRA_DOMAIN \033[0m"
+echo "- Public IP Address:  \033[36m $ZIMBRA_SERVERIP \033[0m"
+echo ""
 
 echo "\033[32;1mDone. The server has been configured for the installation of Zimbra Server.\033[0m"
 echo ""
